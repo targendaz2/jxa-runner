@@ -27,6 +27,12 @@ describe('argument serialization tests', () => {
     test('can serialize boolean arguments', () => {
         expect(serializeArgs(true, false)).toEqualCode('true, false');
     });
+
+    test('can serialize Date arguments', () => {
+        expect(serializeArgs(new Date('2024-01-15T09:00:00Z'))).toEqualCode(
+            'new Date("2024-01-15T09:00:00.000Z")',
+        );
+    });
 });
 
 describe('function serialization tests', () => {

@@ -6,6 +6,10 @@ import { packageDirectorySync } from 'pkg-dir';
 export function serializeArgs(...args: any[]): string {
     return args
         .map((arg) => {
+            if (arg instanceof Date) {
+                return `new Date("${arg.toISOString()}")`;
+            }
+
             switch (typeof arg) {
                 case 'string':
                     return `"${arg}"`;
