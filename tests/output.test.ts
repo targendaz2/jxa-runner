@@ -3,23 +3,27 @@ import path from 'node:path';
 import { describe, expect, test } from '@jest/globals';
 import { packageDirectorySync } from 'pkg-dir';
 import '../jest.setup';
+import { buildCode, outputCode } from '../src/main';
 import {
-    buildCode,
-    outputCode,
-    serializeArgs,
-    serializeFn,
-    serializeImports,
-} from '../src/main';
+    ArgsSerializer,
+    FnSerializer,
+    ImportsSerializer,
+    serialize,
+} from '../src/serializers';
 
 describe('code output tests', () => {
     test('can write code to file', () => {
-        const serializedFn = serializeFn(
+        const serializedFn = serialize(
             (greeting: string, name: string) => `${greeting}, ${name}!`,
+            FnSerializer,
         );
-        const serializedArgs = serializeArgs('Welcome', 'John');
-        const serializedImports = serializeImports({
-            zod: 'z',
-        });
+        const serializedArgs = serialize(['Welcome', 'John'], ArgsSerializer);
+        const serializedImports = serialize(
+            {
+                zod: 'z',
+            },
+            ImportsSerializer,
+        );
 
         const code = buildCode(serializedFn, serializedArgs, serializedImports);
         outputCode(code);
