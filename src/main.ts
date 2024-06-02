@@ -46,7 +46,7 @@ export function buildCode(
 /** Writes serialized code to a file. */
 export function outputCode(code: string): void {
     fs.outputFileSync(
-        path.resolve(packageDirectorySync()!, '.tmp', 'index.ts'),
+        path.resolve(packageDirectorySync()!, '.tmp', 'index.js'),
         code,
     );
 }
