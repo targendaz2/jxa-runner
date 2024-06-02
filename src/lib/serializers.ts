@@ -5,7 +5,7 @@ import type {
     SerializedArgs,
     SerializedFn,
     SerializedImports,
-} from './types.js';
+} from '../types.js';
 
 interface Serializer<R extends any | any[]> {
     serialize(data: any | any[]): R;

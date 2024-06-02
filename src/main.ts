@@ -1,22 +1,12 @@
-import path from 'node:path';
-import fs from 'fs-extra';
-import { packageDirectorySync } from 'pkg-dir';
+import { outputTemplate } from './lib/output.js';
 import {
     ArgsSerializer,
     FnSerializer,
     ImportsSerializer,
     serialize,
-} from './serializers.js';
-import { JxaCodeTemplate, fillTemplate } from './templates.js';
+} from './lib/serializers.js';
+import { JxaCodeTemplate, fillTemplate } from './lib/templates.js';
 import type { ImportsList } from './types.js';
-
-/** Writes serialized code to a file. */
-export function outputCode(code: string): void {
-    fs.outputFileSync(
-        path.resolve(packageDirectorySync()!, '.tmp', 'index.js'),
-        code,
-    );
-}
 
 interface RunOptions {
     args?: any[];
@@ -47,7 +37,7 @@ export async function run<T>(
     });
 
     // Write the JXA code to file
-    outputCode(code);
+    outputTemplate(code);
 }
 
 export function runSync<T>(
@@ -74,5 +64,5 @@ export function runSync<T>(
     });
 
     // Write the JXA code to file
-    outputCode(code);
+    outputTemplate(code);
 }

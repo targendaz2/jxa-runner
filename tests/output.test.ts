@@ -1,19 +1,17 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import { describe, expect, test } from '@jest/globals';
-import { packageDirectorySync } from 'pkg-dir';
 import '../jest.setup';
-import { outputCode } from '../src/main.js';
+import { entryPath, outputTemplate } from '../src/lib/output.js';
 import {
     ArgsSerializer,
     FnSerializer,
     ImportsSerializer,
     serialize,
-} from '../src/serializers.js';
-import { JxaCodeTemplate, fillTemplate } from '../src/templates.js';
+} from '../src/lib/serializers.js';
+import { JxaCodeTemplate, fillTemplate } from '../src/lib/templates.js';
 
-describe('code output tests', () => {
-    test('can write code to file', () => {
+describe('template output tests', () => {
+    test('can write filled template to file', () => {
         const serializedFn = serialize(
             (greeting: string, name: string) => `${greeting}, ${name}!`,
             FnSerializer,
@@ -31,14 +29,11 @@ describe('code output tests', () => {
             args: serializedArgs,
             imports: serializedImports,
         });
-        outputCode(code);
+        outputTemplate(code);
 
-        const fileContents = fs.readFileSync(
-            path.resolve(packageDirectorySync()!, '.tmp', 'index.js'),
-            {
-                encoding: 'utf8',
-            },
-        );
+        const fileContents = fs.readFileSync(entryPath, {
+            encoding: 'utf8',
+        });
 
         expect(fileContents).toEqualCode(`
             import z from "zod";

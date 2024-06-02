@@ -5,7 +5,7 @@ import type {
     SerializedFn,
     SerializedImports,
     TemplateData,
-} from './types.js';
+} from '../types.js';
 
 class Template<D extends TemplateData> {
     constructor(public readonly template: string) {}
