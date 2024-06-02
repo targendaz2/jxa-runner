@@ -13,6 +13,14 @@ export function serializeFn<T>(fn: (...args: any[]) => T): string {
     return fn.toString();
 }
 
+export function buildCode(serializedFn: string): string {
+    return `
+        const fn = ${serializedFn}
+        const result = fn();
+        JSON.stringify({ result });
+    `;
+}
+
 /** Writes serialized code to a file. */
 export function outputCode(code: string): void {
     fs.outputFileSync(

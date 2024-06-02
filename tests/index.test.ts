@@ -3,7 +3,7 @@ import path from 'node:path';
 import { describe, expect, test } from '@jest/globals';
 import { packageDirectorySync } from 'pkg-dir';
 import '../jest.setup';
-import { outputCode, serializeArgs, serializeFn } from '../src/main';
+import { buildCode, outputCode, serializeArgs, serializeFn } from '../src/main';
 
 describe('argument serialization tests', () => {
     test('can serialize empty arguments list', () => {
@@ -59,6 +59,28 @@ describe('function serialization tests', () => {
     test('can serialize function with arguments', () => {
         const serializedFn = serializeFn((value: string) => value);
         expect(serializedFn).toEqualCode('(value) => value');
+    });
+});
+
+describe('code building tests', () => {
+    test('can build code from function', () => {
+        const serializedFn = serializeFn(() => 'hello');
+        const code = buildCode(serializedFn);
+        expect(code).toEqualCode(`
+            const fn = () => "hello";
+            const result = fn();
+            JSON.stringify({ result });
+        `);
+    });
+
+    test('can build code from function with arguments', () => {
+        const serializedFn = serializeFn((value: string) => value);
+        const code = buildCode(serializedFn);
+        expect(code).toEqualCode(`
+            const fn = (value) => value;
+            const result = fn();
+            JSON.stringify({ result });
+        `);
     });
 });
 
