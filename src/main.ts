@@ -56,7 +56,30 @@ interface RunOptions {
     imports?: ImportsList;
 }
 
-export function run<T>(
+export async function run<T>(
+    jxaFn: (...args: any[]) => T,
+    options: RunOptions = {},
+): Promise<void> {
+    // Parse options
+    const { args, imports } = { args: [], imports: {}, ...options };
+
+    // Serialize the arguments
+    const serializedArgs = serializeArgs(args);
+
+    // Serialize the imports
+    const serializedImports = serializeImports(imports);
+
+    // Serialize the function
+    const serializedFn = serializeFn(jxaFn);
+
+    // Build the JXA code
+    const code = buildCode(serializedFn, serializedArgs, serializedImports);
+
+    // Write the JXA code to file
+    outputCode(code);
+}
+
+export function runSync<T>(
     jxaFn: (...args: any[]) => T,
     options: RunOptions = {},
 ): void {

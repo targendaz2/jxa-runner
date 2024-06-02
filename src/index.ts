@@ -1,3 +1,1 @@
-import { run } from './main.js';
-
-export default run;
+export { run, runSync } from './main.js';
