@@ -13,12 +13,30 @@ export function serializeFn<T>(fn: (...args: any[]) => T): string {
     return fn.toString();
 }
 
+/** Imports to include in JXA code. */
+type ImportsList = { [key: string]: string | string[] | null };
+
+/** Serializes imports as an array of strings.  */
+export function serializeImports(imports: ImportsList): string[] {
+    return Object.entries(imports).map(([module, values]) => {
+        if (typeof values === 'string') {
+            return `import ${values} from "${module}";`;
+        } else if (Array.isArray(values)) {
+            return `import {${values.toString()}} from "${module}";`;
+        } else {
+            return `import "${module}"`;
+        }
+    });
+}
+
 /** Builds JXA code from a serialized function and its arguments. */
 export function buildCode(
     serializedFn: string,
     serializedArgs: string = '',
+    serializedImports: string[] = [],
 ): string {
     return `
+        ${serializedImports.join('\n')}
         const fn = ${serializedFn}
         const result = fn(${serializedArgs});
         JSON.stringify({ result });
@@ -33,16 +51,30 @@ export function outputCode(code: string): void {
     );
 }
 
-export function run<T>(jxaFn: (...args: any[]) => T, args: any[] = []): void {
+interface RunOptions {
+    args?: any[];
+    imports?: ImportsList;
+}
+
+export function run<T>(
+    jxaFn: (...args: any[]) => T,
+    options: RunOptions = {},
+): void {
+    // Parse options
+    const { args, imports } = { args: [], imports: {}, ...options };
+
     // Serialize the arguments
     const serializedArgs = serializeArgs(args);
+
+    // Serialize the imports
+    const serializedImports = serializeImports(imports);
 
     // Serialize the function
     const serializedFn = serializeFn(jxaFn);
 
     // Build the JXA code
-    const code = buildCode(serializedFn, serializedArgs);
+    const code = buildCode(serializedFn, serializedArgs, serializedImports);
 
-    // Write the serialized function to file
+    // Write the JXA code to file
     outputCode(code);
 }

@@ -3,7 +3,13 @@ import path from 'node:path';
 import { describe, expect, test } from '@jest/globals';
 import { packageDirectorySync } from 'pkg-dir';
 import '../jest.setup';
-import { buildCode, outputCode, serializeArgs, serializeFn } from '../src/main';
+import {
+    buildCode,
+    outputCode,
+    serializeArgs,
+    serializeFn,
+    serializeImports,
+} from '../src/main';
 
 describe('argument serialization tests', () => {
     test('can serialize empty arguments list', () => {
@@ -50,6 +56,27 @@ describe('argument serialization tests', () => {
     });
 });
 
+describe('imports serialization tests', () => {
+    test('can serialize import', () => {
+        const serializedImports = serializeImports({
+            zod: 'z',
+        });
+        expect(serializedImports[0]).toEqualCode('import z from "zod";');
+    });
+
+    test('can serialize multiple imports', () => {
+        const serializedImports = serializeImports({
+            lodash: ['defaults', 'partition'],
+            zod: 'z',
+        });
+
+        expect(serializedImports[0]).toEqualCode(
+            'import { defaults, partition } from "lodash";',
+        );
+        expect(serializedImports[1]).toEqualCode('import z from "zod";');
+    });
+});
+
 describe('function serialization tests', () => {
     test('can serialize function', () => {
         const serializedFn = serializeFn(() => 'hello');
@@ -92,7 +119,11 @@ describe('code writing tests', () => {
             (greeting: string, name: string) => `${greeting}, ${name}!`,
         );
         const serializedArgs = serializeArgs('Welcome', 'John');
-        const code = buildCode(serializedFn, serializedArgs);
+        const serializedImports = serializeImports({
+            zod: 'z',
+        });
+
+        const code = buildCode(serializedFn, serializedArgs, serializedImports);
         outputCode(code);
 
         const fileContents = fs.readFileSync(
@@ -103,6 +134,7 @@ describe('code writing tests', () => {
         );
 
         expect(fileContents).toEqualCode(`
+            import z from "zod";
             const fn = (greeting, name) => \`\${greeting}, \${name}!\`;
             const result = fn("Welcome", "John");
             JSON.stringify({ result });
