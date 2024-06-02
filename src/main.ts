@@ -13,10 +13,14 @@ export function serializeFn<T>(fn: (...args: any[]) => T): string {
     return fn.toString();
 }
 
-export function buildCode(serializedFn: string): string {
+/** Builds JXA code from a serialized function and its arguments. */
+export function buildCode(
+    serializedFn: string,
+    serializedArgs: string = '',
+): string {
     return `
         const fn = ${serializedFn}
-        const result = fn();
+        const result = fn(${serializedArgs});
         JSON.stringify({ result });
     `;
 }
@@ -36,6 +40,9 @@ export function run<T>(jxaFn: (...args: any[]) => T, args: any[] = []): void {
     // Serialize the function
     const serializedFn = serializeFn(jxaFn);
 
+    // Build the JXA code
+    const code = buildCode(serializedFn, serializedArgs);
+
     // Write the serialized function to file
-    outputCode(serializedFn);
+    outputCode(code);
 }

@@ -70,6 +70,13 @@ const toOutput: MatcherFunction<[expected: string]> = function (
         stdio: 'pipe',
     });
 
+    if (result.error) {
+        return {
+            pass: false,
+            message: () => `the code failed to run:\n\n${result.error}`,
+        };
+    }
+
     const output = result.output ? result.output.join(' ').trim() : '';
 
     const pass = output === expected;

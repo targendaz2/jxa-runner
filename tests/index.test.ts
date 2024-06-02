@@ -62,8 +62,8 @@ describe('function serialization tests', () => {
     });
 });
 
-describe('code building tests', () => {
-    test('can build code from function', () => {
+describe('JXA code building tests', () => {
+    test('can build JXA code from function', () => {
         const serializedFn = serializeFn(() => 'hello');
         const code = buildCode(serializedFn);
         expect(code).toEqualCode(`
@@ -73,12 +73,14 @@ describe('code building tests', () => {
         `);
     });
 
-    test('can build code from function with arguments', () => {
+    test('can build JXA code from function with arguments', () => {
         const serializedFn = serializeFn((value: string) => value);
-        const code = buildCode(serializedFn);
+        const serializedArgs = serializeArgs('John');
+
+        const code = buildCode(serializedFn, serializedArgs);
         expect(code).toEqualCode(`
             const fn = (value) => value;
-            const result = fn();
+            const result = fn("John");
             JSON.stringify({ result });
         `);
     });
@@ -86,8 +88,12 @@ describe('code building tests', () => {
 
 describe('code writing tests', () => {
     test('can write code to file', () => {
-        const serializedCode = serializeFn((name: string) => `Hello, ${name}`);
-        outputCode(serializedCode);
+        const serializedFn = serializeFn(
+            (greeting: string, name: string) => `${greeting}, ${name}!`,
+        );
+        const serializedArgs = serializeArgs('Welcome', 'John');
+        const code = buildCode(serializedFn, serializedArgs);
+        outputCode(code);
 
         const fileContents = fs.readFileSync(
             path.resolve(packageDirectorySync()!, '.tmp', 'index.ts'),
@@ -96,6 +102,10 @@ describe('code writing tests', () => {
             },
         );
 
-        expect(fileContents).toEqualCode('(name) => `Hello, ${name}`');
+        expect(fileContents).toEqualCode(`
+            const fn = (greeting, name) => \`\${greeting}, \${name}!\`;
+            const result = fn("Welcome", "John");
+            JSON.stringify({ result });
+        `);
     });
 });
