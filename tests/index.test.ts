@@ -38,13 +38,14 @@ describe('argument serialization tests', () => {
         expect(serializedArgs).toEqualCode('[1, 2, 3], ["hello", "world"]');
     });
 
-    test.skip('can serialize object arguments', () => {
+    test('can serialize object arguments', () => {
         const serializedArgs = serializeArgs(
             { name: 'John Smith', age: 37 },
             { name: 'Jane Smith', age: 23 },
         );
-        expect(serializedArgs).toEqualCode(
-            '{ name: "John Smith", age: 37 }, { name: "Jane Smith", age: 23 }',
+        // Prettier can't format the expected code, so I've manually formatted it
+        expect(serializedArgs).toBe(
+            '{"name":"John Smith","age":37},{"name":"Jane Smith","age":23}',
         );
     });
 });
