@@ -29,7 +29,7 @@ describe('code output tests', () => {
         const code = fillTemplate(JxaCodeTemplate, {
             fn: serializedFn,
             args: serializedArgs,
-            imports: serializedImports.join('\n'),
+            imports: serializedImports,
         });
         outputCode(code);
 

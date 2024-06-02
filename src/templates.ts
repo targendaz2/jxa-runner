@@ -1,5 +1,9 @@
 import pupa from 'pupa';
-import { SerializedArgs, SerializedFn } from './serializers.js';
+import {
+    SerializedArgs,
+    SerializedFn,
+    SerializedImports,
+} from './serializers.js';
 
 type TemplateData = Record<string, any>;
 type FilledTemplate = string;
@@ -19,7 +23,7 @@ class Template<D extends TemplateData> {
 export const JxaCodeTemplate = new Template<{
     fn: SerializedFn;
     args?: SerializedArgs;
-    imports?: string;
+    imports?: SerializedImports;
 }>(`
     {imports}
     const fn = {fn}

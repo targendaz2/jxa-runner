@@ -43,7 +43,7 @@ export async function run<T>(
     const code = fillTemplate(JxaCodeTemplate, {
         fn: serializedFn,
         args: serializedArgs,
-        imports: serializedImports.join('\n'),
+        imports: serializedImports,
     });
 
     // Write the JXA code to file
@@ -70,7 +70,7 @@ export function runSync<T>(
     const code = fillTemplate(JxaCodeTemplate, {
         fn: serializedFn,
         args: serializedArgs,
-        imports: serializedImports.join('\n'),
+        imports: serializedImports,
     });
 
     // Write the JXA code to file

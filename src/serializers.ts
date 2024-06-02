@@ -20,20 +20,22 @@ export const ArgsSerializer: Serializer<SerializedArgs> = {
     },
 };
 
-export type SerializedImports = string[];
+export type SerializedImports = string;
 
 /** Serializes imports as an array of strings.  */
 export const ImportsSerializer: Serializer<SerializedImports> = {
     serialize(imports: ImportsList = {}) {
-        return Object.entries(imports).map(([module, values]) => {
-            if (typeof values === 'string') {
-                return `import ${values} from "${module}";`;
-            } else if (Array.isArray(values)) {
-                return `import {${values.toString()}} from "${module}";`;
-            } else {
-                return `import "${module}"`;
-            }
-        });
+        return Object.entries(imports)
+            .map(([module, values]) => {
+                if (typeof values === 'string') {
+                    return `import ${values} from "${module}";`;
+                } else if (Array.isArray(values)) {
+                    return `import {${values.toString()}} from "${module}";`;
+                } else {
+                    return `import "${module}"`;
+                }
+            })
+            .join('\n');
     },
 };
 

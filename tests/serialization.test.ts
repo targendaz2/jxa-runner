@@ -75,7 +75,7 @@ describe('imports serialization tests', () => {
             },
             ImportsSerializer,
         );
-        expect(serializedImports[0]).toEqualCode('import z from "zod";');
+        expect(serializedImports).toEqualCode('import z from "zod";');
     });
 
     test('can serialize multiple imports', () => {
@@ -87,10 +87,10 @@ describe('imports serialization tests', () => {
             ImportsSerializer,
         );
 
-        expect(serializedImports[0]).toEqualCode(
-            'import { defaults, partition } from "lodash";',
-        );
-        expect(serializedImports[1]).toEqualCode('import z from "zod";');
+        expect(serializedImports).toEqualCode(`
+            import { defaults, partition } from "lodash";
+            import z from "zod";
+        `);
     });
 });
 
