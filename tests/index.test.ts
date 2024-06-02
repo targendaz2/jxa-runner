@@ -3,9 +3,9 @@ import path from 'node:path';
 import { describe, expect, test } from '@jest/globals';
 import { packageDirectorySync } from 'pkg-dir';
 import '../jest.setup';
-import { run, serializeArgs, serializeFn } from '../src/index';
+import { outputCode, serializeArgs, serializeFn } from '../src/main';
 
-describe('serialization tests', () => {
+describe('argument serialization tests', () => {
     test('can serialize arguments', () => {
         expect(serializeArgs(1, 'hello', true)).toEqualCode('1, "hello", true');
     });
@@ -27,7 +27,9 @@ describe('serialization tests', () => {
     test('can serialize boolean arguments', () => {
         expect(serializeArgs(true, false)).toEqualCode('true, false');
     });
+});
 
+describe('function serialization tests', () => {
     test('can serialize function', () => {
         expect(serializeFn(() => 'hello')).toEqualCode('() => "hello"');
     });
@@ -41,7 +43,9 @@ describe('serialization tests', () => {
 
 describe('code writing tests', () => {
     test('can write code to file', () => {
-        run((name: string) => `Hello, ${name}`);
+        const serializedCode = serializeFn((name: string) => `Hello, ${name}`);
+        outputCode(serializedCode);
+
         const fileContents = fs.readFileSync(
             path.resolve(packageDirectorySync()!, '.tmp', 'index.ts'),
             {
