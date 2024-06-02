@@ -14,6 +14,20 @@ describe('serialization tests', () => {
         expect(serializeArgs()).toBe('');
     });
 
+    test('can serialize number arguments', () => {
+        expect(serializeArgs(1, 2, 15)).toEqualCode('1, 2, 15');
+    });
+
+    test('can serialize string arguments', () => {
+        expect(serializeArgs('Hello, world!', 'greeting')).toEqualCode(
+            '"Hello, world!", "greeting"',
+        );
+    });
+
+    test('can serialize boolean arguments', () => {
+        expect(serializeArgs(true, false)).toEqualCode('true, false');
+    });
+
     test('can serialize function', () => {
         expect(serializeFn(() => 'hello')).toEqualCode('() => "hello"');
     });
