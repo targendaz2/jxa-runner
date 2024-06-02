@@ -6,25 +6,9 @@ import {
     FnSerializer,
     ImportsList,
     ImportsSerializer,
-    SerializedArgs,
-    SerializedFn,
-    SerializedImports,
     serialize,
 } from './serializers.js';
-
-/** Builds JXA code from a serialized function and its arguments. */
-export function buildCode(
-    serializedFn: SerializedFn,
-    serializedArgs: SerializedArgs = '',
-    serializedImports: SerializedImports = [],
-): string {
-    return `
-        ${serializedImports.join('\n')}
-        const fn = ${serializedFn}
-        const result = fn(${serializedArgs});
-        JSON.stringify({ result });
-    `;
-}
+import { JxaCodeTemplate, fillTemplate } from './templates.js';
 
 /** Writes serialized code to a file. */
 export function outputCode(code: string): void {
@@ -56,7 +40,11 @@ export async function run<T>(
     const serializedFn = serialize(jxaFn, FnSerializer);
 
     // Build the JXA code
-    const code = buildCode(serializedFn, serializedArgs, serializedImports);
+    const code = fillTemplate(JxaCodeTemplate, {
+        fn: serializedFn,
+        args: serializedArgs,
+        imports: serializedImports.join('\n'),
+    });
 
     // Write the JXA code to file
     outputCode(code);
@@ -79,7 +67,11 @@ export function runSync<T>(
     const serializedFn = serialize(jxaFn, FnSerializer);
 
     // Build the JXA code
-    const code = buildCode(serializedFn, serializedArgs, serializedImports);
+    const code = fillTemplate(JxaCodeTemplate, {
+        fn: serializedFn,
+        args: serializedArgs,
+        imports: serializedImports.join('\n'),
+    });
 
     // Write the JXA code to file
     outputCode(code);

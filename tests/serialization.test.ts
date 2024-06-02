@@ -1,12 +1,11 @@
 import { describe, expect, test } from '@jest/globals';
 import '../jest.setup';
-import { buildCode } from '../src/main';
 import {
     ArgsSerializer,
     FnSerializer,
     ImportsSerializer,
     serialize,
-} from '../src/serializers';
+} from '../src/serializers.js';
 
 describe('argument serialization tests', () => {
     test('can serialize empty arguments list', () => {
@@ -104,29 +103,5 @@ describe('function serialization tests', () => {
     test('can serialize function with arguments', () => {
         const serializedFn = serialize((value: string) => value, FnSerializer);
         expect(serializedFn).toEqualCode('(value) => value');
-    });
-});
-
-describe('JXA code building tests', () => {
-    test('can build JXA code from function', () => {
-        const serializedFn = serialize(() => 'hello', FnSerializer);
-        const code = buildCode(serializedFn);
-        expect(code).toEqualCode(`
-            const fn = () => "hello";
-            const result = fn();
-            JSON.stringify({ result });
-        `);
-    });
-
-    test('can build JXA code from function with arguments', () => {
-        const serializedFn = serialize((value: string) => value, FnSerializer);
-        const serializedArgs = serialize('John', ArgsSerializer);
-
-        const code = buildCode(serializedFn, serializedArgs);
-        expect(code).toEqualCode(`
-            const fn = (value) => value;
-            const result = fn("John");
-            JSON.stringify({ result });
-        `);
     });
 });

@@ -3,13 +3,14 @@ import path from 'node:path';
 import { describe, expect, test } from '@jest/globals';
 import { packageDirectorySync } from 'pkg-dir';
 import '../jest.setup';
-import { buildCode, outputCode } from '../src/main';
+import { outputCode } from '../src/main.js';
 import {
     ArgsSerializer,
     FnSerializer,
     ImportsSerializer,
     serialize,
-} from '../src/serializers';
+} from '../src/serializers.js';
+import { JxaCodeTemplate, fillTemplate } from '../src/templates.js';
 
 describe('code output tests', () => {
     test('can write code to file', () => {
@@ -25,7 +26,11 @@ describe('code output tests', () => {
             ImportsSerializer,
         );
 
-        const code = buildCode(serializedFn, serializedArgs, serializedImports);
+        const code = fillTemplate(JxaCodeTemplate, {
+            fn: serializedFn,
+            args: serializedArgs,
+            imports: serializedImports.join('\n'),
+        });
         outputCode(code);
 
         const fileContents = fs.readFileSync(
