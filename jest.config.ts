@@ -4,7 +4,7 @@ const config: JestConfigWithTsJest = {
   extensionsToTreatAsEsm: ['.ts'],
   moduleFileExtensions: ['js', 'ts'],
   passWithNoTests: true,
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/js-with-ts-esm',
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testEnvironment: 'node',
   testRegex: '.+\\.test\\.ts$',

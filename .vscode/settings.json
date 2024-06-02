@@ -5,8 +5,8 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "*.js": "*.d.ts",
-    "package.json": ".eslint*, .markdown*, .prettierrc*, .yarnrc*, cspell*, eslint*, jest*, yarn.lock"
+    "*.js": "$(capture).d.ts, $(capture).js.map",
+    "package.json": ".eslint*, .markdown*, .prettierrc*, .yarn*, cspell*, eslint*, jest*, yarn*"
   },
   "jest.outputConfig": "test-results-based",
   "jest.runMode": "on-demand",
