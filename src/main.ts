@@ -1,25 +1,11 @@
 import path from 'node:path';
 import fs from 'fs-extra';
 import { packageDirectorySync } from 'pkg-dir';
+import serialize from 'serialize-javascript';
 
 /** Serializes JavaScript function arguments as a single string. */
 export function serializeArgs(...args: any[]): string {
-    return args
-        .map((arg) => {
-            if (arg instanceof Date) {
-                return `new Date("${arg.toISOString()}")`;
-            }
-
-            switch (typeof arg) {
-                case 'object':
-                    return JSON.stringify(arg);
-                case 'string':
-                    return `"${arg}"`;
-                default:
-                    return arg.toString();
-            }
-        })
-        .toString();
+    return args.map((arg) => serialize(arg)).toString();
 }
 
 /** Serializes a JavaScript function as a string. */

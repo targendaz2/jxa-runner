@@ -37,6 +37,16 @@ describe('argument serialization tests', () => {
         const serializedArgs = serializeArgs([1, 2, 3], ['hello', 'world']);
         expect(serializedArgs).toEqualCode('[1, 2, 3], ["hello", "world"]');
     });
+
+    test.skip('can serialize object arguments', () => {
+        const serializedArgs = serializeArgs(
+            { name: 'John Smith', age: 37 },
+            { name: 'Jane Smith', age: 23 },
+        );
+        expect(serializedArgs).toEqualCode(
+            '{ name: "John Smith", age: 37 }, { name: "Jane Smith", age: 23 }',
+        );
+    });
 });
 
 describe('function serialization tests', () => {
