@@ -1,0 +1,23 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.experimental.useFlatConfig": true,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "*.js": "*.d.ts",
+    "package.json": ".eslint*, .markdown*, .prettierrc*, .yarnrc*, cspell*, eslint*, jest*, yarn.lock"
+  },
+  "jest.outputConfig": "test-results-based",
+  "jest.runMode": "on-demand",
+  "markdownlint.config": {
+    "extends": "./.markdownlintrc"
+  },
+  "material-icon-theme.files.associations": {
+    ".markdownlintrc": "Settings",
+    "cspell.json": "Settings"
+  },
+  "material-icon-theme.folders.associations": {
+    "dicts": "Docs"
+  }
+}

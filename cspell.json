@@ -1,0 +1,9 @@
+{
+  "version": "0.2",
+  "ignorePaths": ["*.lock", ".prettierrc*", ".vscode/*", "node_modules/"],
+  "dictionaryDefinitions": [],
+  "dictionaries": ["misc", "node", "npm", "typescript"],
+  "words": ["applescript", "dgrdev", "osascript"],
+  "ignoreWords": ["targendaz2", "trivago", "tseslint"],
+  "import": []
+}

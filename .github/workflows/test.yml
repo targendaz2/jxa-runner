@@ -1,0 +1,33 @@
+name: tests
+
+on: [push]
+
+jobs:
+  test:
+    permissions:
+      checks: write
+
+    strategy:
+      matrix:
+        os: [macos-12, macos-13, macos-14]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21.x'
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run tests
+        run: yarn test
