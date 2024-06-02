@@ -11,6 +11,8 @@ export function serializeArgs(...args: any[]): string {
             }
 
             switch (typeof arg) {
+                case 'object':
+                    return JSON.stringify(arg);
                 case 'string':
                     return `"${arg}"`;
                 default:

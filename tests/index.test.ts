@@ -6,44 +6,48 @@ import '../jest.setup';
 import { outputCode, serializeArgs, serializeFn } from '../src/main';
 
 describe('argument serialization tests', () => {
-    test('can serialize arguments', () => {
-        expect(serializeArgs(1, 'hello', true)).toEqualCode('1, "hello", true');
-    });
-
     test('can serialize empty arguments list', () => {
-        expect(serializeArgs()).toBe('');
+        const serializedArgs = serializeArgs();
+        expect(serializedArgs).toBe('');
     });
 
     test('can serialize number arguments', () => {
-        expect(serializeArgs(1, 2, 15)).toEqualCode('1, 2, 15');
+        const serializedArgs = serializeArgs(1, 2, 15);
+        expect(serializedArgs).toEqualCode('1, 2, 15');
     });
 
     test('can serialize string arguments', () => {
-        expect(serializeArgs('Hello, world!', 'greeting')).toEqualCode(
-            '"Hello, world!", "greeting"',
-        );
+        const serializedArgs = serializeArgs('Hello, world!', 'greeting');
+        expect(serializedArgs).toEqualCode('"Hello, world!", "greeting"');
     });
 
     test('can serialize boolean arguments', () => {
-        expect(serializeArgs(true, false)).toEqualCode('true, false');
+        const serializedArgs = serializeArgs(true, false);
+        expect(serializedArgs).toEqualCode('true, false');
     });
 
     test('can serialize Date arguments', () => {
-        expect(serializeArgs(new Date('2024-01-15T09:00:00Z'))).toEqualCode(
+        const serializedArgs = serializeArgs(new Date('2024-01-15T09:00:00Z'));
+        expect(serializedArgs).toEqualCode(
             'new Date("2024-01-15T09:00:00.000Z")',
         );
+    });
+
+    test('can serialize array arguments', () => {
+        const serializedArgs = serializeArgs([1, 2, 3], ['hello', 'world']);
+        expect(serializedArgs).toEqualCode('[1, 2, 3], ["hello", "world"]');
     });
 });
 
 describe('function serialization tests', () => {
     test('can serialize function', () => {
-        expect(serializeFn(() => 'hello')).toEqualCode('() => "hello"');
+        const serializedFn = serializeFn(() => 'hello');
+        expect(serializedFn).toEqualCode('() => "hello"');
     });
 
     test('can serialize function with arguments', () => {
-        expect(serializeFn((value: string) => value)).toEqualCode(
-            '(value) => value',
-        );
+        const serializedFn = serializeFn((value: string) => value);
+        expect(serializedFn).toEqualCode('(value) => value');
     });
 });
 
