@@ -4,11 +4,11 @@ import { packageDirectorySync } from 'pkg-dir';
 import {
     ArgsSerializer,
     FnSerializer,
-    ImportsList,
     ImportsSerializer,
     serialize,
 } from './serializers.js';
 import { JxaCodeTemplate, fillTemplate } from './templates.js';
+import type { ImportsList } from './types.js';
 
 /** Writes serialized code to a file. */
 export function outputCode(code: string): void {

@@ -1,12 +1,11 @@
 import pupa from 'pupa';
-import {
+import type {
+    FilledTemplate,
     SerializedArgs,
     SerializedFn,
     SerializedImports,
-} from './serializers.js';
-
-type TemplateData = Record<string, any>;
-type FilledTemplate = string;
+    TemplateData,
+} from './types.js';
 
 class Template<D extends TemplateData> {
     constructor(public readonly template: string) {}
@@ -17,6 +16,14 @@ class Template<D extends TemplateData> {
             transform: ({ value }) => (value !== undefined ? value : ''),
         });
     }
+}
+
+/** Fills a template using the provided data. */
+export function fillTemplate<D extends TemplateData>(
+    template: Template<D>,
+    data: D,
+): FilledTemplate {
+    return template.fill(data);
 }
 
 /** Template for the JXA entrypoint file. */
@@ -30,10 +37,3 @@ export const JxaCodeTemplate = new Template<{
     const result = fn({args});
     JSON.stringify({ result });
 `);
-
-export function fillTemplate<D extends TemplateData>(
-    template: Template<D>,
-    data: D,
-): FilledTemplate {
-    return template.fill(data);
-}
