@@ -1,4 +1,5 @@
 import cp from 'node:child_process';
+import fs from 'node:fs';
 import { expect } from '@jest/globals';
 import prettier from '@prettier/sync';
 import type { MatcherFunction } from 'expect';
@@ -89,9 +90,26 @@ const toOutput: MatcherFunction<[expected: string]> = function (
     };
 };
 
+const toExist: MatcherFunction = function (actual) {
+    const typedActual = actual as fs.PathLike;
+    const pass = fs.existsSync(typedActual);
+
+    return {
+        pass,
+        message: pass
+            ? () => `"${typedActual}" exists`
+            : () => `"${typedActual}" does not exist`,
+    };
+};
+
+expect.extend({
+    toExist,
+});
+
 expect.extend({
     toEqualCode,
     toOutput,
+    toExist,
 });
 
 declare module 'expect' {
@@ -101,6 +119,9 @@ declare module 'expect' {
 
         /** Checks that the output of a script matches an expected value. */
         toOutput(expected: string): void;
+
+        /** Checks that a file path exists. */
+        toExist(): void;
     }
     interface Matchers<R> {
         /** Checks that a string of code matches another string of code. */
@@ -108,5 +129,8 @@ declare module 'expect' {
 
         /** Checks that the output of a script matches an expected value. */
         toOutput(expected: string): R;
+
+        /** Checks that a file path exists. */
+        toExist(): R;
     }
 }

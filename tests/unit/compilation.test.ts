@@ -1,4 +1,3 @@
-import cp from 'node:child_process';
 import { describe, expect, test } from '@jest/globals';
 import '../../jest.setup';
 import config from '../../src/config/common.js';
@@ -12,7 +11,6 @@ import {
 import { JxaCodeTemplate, fillTemplate } from '../../src/lib/templates.js';
 
 describe('JXA compilation tests', () => {
-    // TODO: This is also testing running the compiled code. rewrite to just test compilation.
     test('can compile JXA code', async () => {
         const serializedFn = serialize(
             (greeting: string, name: string) => `${greeting}, ${name}!`,
@@ -27,17 +25,7 @@ describe('JXA compilation tests', () => {
         outputTemplate(code);
 
         await compile(config.entryPath, config.outputPath, JxaCompiler);
-        const result = JSON.parse(
-            cp.execFileSync(
-                '/usr/bin/osascript',
-                ['-l', 'JavaScript', config.outputPath],
-                {
-                    encoding: 'utf8',
-                    maxBuffer: config.maxBuffer,
-                },
-            ),
-        ).result;
 
-        expect(result).toBe('Welcome, John!');
+        expect(config.outputPath).toExist();
     });
 });
