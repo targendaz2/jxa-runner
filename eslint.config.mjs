@@ -5,7 +5,7 @@ import tseslint from 'typescript-eslint';
 
 const config = tseslint.config(
   {
-    ignores: ['dist/'],
+    ignores: ['.tmp/', 'dist/'],
   },
   eslint.configs.recommended,
   ...tseslint.configs.strict,

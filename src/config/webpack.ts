@@ -1,23 +1,26 @@
+import fs from 'node:fs';
 import path from 'node:path';
-import webpack from 'webpack';
-import config from './common.js';
+import { Configuration } from 'webpack';
 
-const webpackConfig: webpack.Configuration = {
-    devtool: 'source-map',
-    entry: config.entryPath,
-    mode: 'production',
-    module: {},
-    optimization: {
-        concatenateModules: true,
-        minimize: true,
-    },
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(path.dirname(config.entryPath), 'dist'),
-    },
-    resolve: {
-        extensions: ['.ts', '.js'],
-    },
-};
-
-export default webpackConfig;
+export default function generateWebpackConfig(
+    entryPath: fs.PathLike,
+    outputPath: fs.PathLike,
+): Configuration {
+    return {
+        entry: entryPath.toString(),
+        mode: 'production',
+        module: {},
+        optimization: {
+            concatenateModules: true,
+            minimize: true,
+        },
+        output: {
+            filename: path.basename(outputPath.toString()),
+            iife: false,
+            path: path.dirname(outputPath.toString()),
+        },
+        resolve: {
+            extensions: ['.ts', '.js'],
+        },
+    };
+}
