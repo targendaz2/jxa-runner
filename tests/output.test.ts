@@ -40,7 +40,7 @@ describe('template output tests', () => {
             import z from "zod";
             const fn = (greeting, name) => \`\${greeting}, \${name}!\`;
             const result = fn("Welcome", "John");
-            return JSON.stringify({ result });
+            JSON.stringify({ result });
         `);
     });
 });

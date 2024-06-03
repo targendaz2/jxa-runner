@@ -16,7 +16,7 @@ describe('JXA code template tests', () => {
         expect(code).toEqualCode(`
             const fn = () => "hello";
             const result = fn();
-            return JSON.stringify({ result });
+            JSON.stringify({ result });
         `);
     });
 
@@ -31,7 +31,7 @@ describe('JXA code template tests', () => {
         expect(code).toEqualCode(`
             const fn = (value) => value;
             const result = fn("John");
-            return JSON.stringify({ result });
+            JSON.stringify({ result });
         `);
     });
 });

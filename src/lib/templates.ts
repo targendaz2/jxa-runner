@@ -35,5 +35,5 @@ export const JxaCodeTemplate = new Template<{
     {imports}
     const fn = {fn}
     const result = fn({args});
-    return JSON.stringify({ result });
+    JSON.stringify({ result });
 `);
