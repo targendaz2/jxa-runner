@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import { describe, expect, test } from '@jest/globals';
 import '../jest.setup';
-import { entryPath, outputTemplate } from '../src/lib/output.js';
+import config from '../src/config/common.js';
+import { outputTemplate } from '../src/lib/output.js';
 import {
     ArgsSerializer,
     FnSerializer,
@@ -31,7 +32,7 @@ describe('template output tests', () => {
         });
         outputTemplate(code);
 
-        const fileContents = fs.readFileSync(entryPath, {
+        const fileContents = fs.readFileSync(config.entryPath, {
             encoding: 'utf8',
         });
 
