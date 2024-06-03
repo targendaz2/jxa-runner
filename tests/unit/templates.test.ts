@@ -1,11 +1,11 @@
 import { describe, expect, test } from '@jest/globals';
-import '../jest.setup.js';
+import '../../jest.setup.js';
 import {
     ArgsSerializer,
     FnSerializer,
     serialize,
-} from '../src/lib/serializers.js';
-import { JxaCodeTemplate, fillTemplate } from '../src/lib/templates.js';
+} from '../../src/lib/serializers.js';
+import { JxaCodeTemplate, fillTemplate } from '../../src/lib/templates.js';
 
 describe('JXA code template tests', () => {
     test('can fill JXA code template from function', () => {

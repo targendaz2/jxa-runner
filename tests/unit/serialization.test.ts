@@ -1,11 +1,11 @@
 import { describe, expect, test } from '@jest/globals';
-import '../jest.setup';
+import '../../jest.setup';
 import {
     ArgsSerializer,
     FnSerializer,
     ImportsSerializer,
     serialize,
-} from '../src/lib/serializers.js';
+} from '../../src/lib/serializers.js';
 
 describe('argument serialization tests', () => {
     test('can serialize empty arguments list', () => {
