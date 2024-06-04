@@ -1,4 +1,5 @@
-import { outputTemplate } from './lib/output.js';
+import fs from 'fs-extra';
+import config from './config.js';
 import {
     ArgsSerializer,
     FnSerializer,
@@ -37,7 +38,7 @@ export async function run<T>(
     });
 
     // Write the JXA code to file
-    outputTemplate(code);
+    fs.outputFileSync(config.entryPath, code);
 }
 
 export function runSync<T>(
@@ -64,5 +65,5 @@ export function runSync<T>(
     });
 
     // Write the JXA code to file
-    outputTemplate(code);
+    fs.outputFileSync(config.entryPath, code);
 }
