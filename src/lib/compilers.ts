@@ -1,25 +1,45 @@
 import fs from 'node:fs';
 import webpack from 'webpack';
 import generateWebpackConfig from '../config/webpack.js';
+import type {
+    CompilerOptions,
+    InputFileSystem,
+    OutputFileSystem,
+} from '../types.js';
 
-interface Compiler {
-    compile: (entryPath: fs.PathLike, outputPath: fs.PathLike) => Promise<void>;
+interface Compiler<T extends CompilerOptions> {
+    compile: (options: T) => Promise<void>;
 }
 
-// TODO: change args to {file, compiler, options}
-export async function compile(
-    entryPath: fs.PathLike,
-    outputPath: fs.PathLike,
-    compiler: Compiler,
+export async function compile<T extends CompilerOptions>(
+    compiler: Compiler<T>,
+    options: T,
 ): Promise<void> {
-    return compiler.compile(entryPath, outputPath);
+    return compiler.compile(options);
 }
 
-export const JxaCompiler: Compiler = {
-    async compile(entryPath, outputPath) {
+// TODO: separate creating and running the compiler instance
+export const JxaCompiler: Compiler<{
+    entryPath: fs.PathLike;
+    outputPath: fs.PathLike;
+    inputFs?: InputFileSystem;
+    outputFs?: OutputFileSystem;
+}> = {
+    async compile(options) {
+        const { entryPath, outputPath } = options;
+
         const webpackConfig = generateWebpackConfig(entryPath, outputPath);
+        const compiler = webpack(webpackConfig);
+
+        if (options.inputFs) {
+            compiler.inputFileSystem = options.inputFs;
+        }
+        if (options.outputFs) {
+            compiler.outputFileSystem = options.outputFs;
+        }
+
         return new Promise((resolve, reject) =>
-            webpack(webpackConfig, (err, stats) => {
+            compiler.run((err, stats) => {
                 if (err) {
                     reject(err);
                 } else if (stats && stats.hasErrors()) {

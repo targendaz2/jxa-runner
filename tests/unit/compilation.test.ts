@@ -24,7 +24,10 @@ describe('JXA compilation tests', () => {
         });
         outputTemplate(code);
 
-        await compile(config.entryPath, config.outputPath, JxaCompiler);
+        await compile(JxaCompiler, {
+            entryPath: config.entryPath,
+            outputPath: config.outputPath,
+        });
 
         expect(config.outputPath).toExist();
     });

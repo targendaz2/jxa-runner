@@ -1,28 +1,9 @@
 {
   "version": "0.2",
-  "ignorePaths": [
-    "*.lock",
-    ".prettierrc*",
-    ".vscode/*",
-    "node_modules/"
-  ],
+  "ignorePaths": ["*.lock", ".prettierrc*", ".vscode/*", "node_modules/"],
   "dictionaryDefinitions": [],
-  "dictionaries": [
-    "misc",
-    "node",
-    "npm",
-    "typescript"
-  ],
-  "words": [
-    "applescript",
-    "dgrdev",
-    "iife",
-    "osascript"
-  ],
-  "ignoreWords": [
-    "targendaz2",
-    "trivago",
-    "tseslint"
-  ],
+  "dictionaries": ["misc", "node", "npm", "typescript"],
+  "words": ["applescript", "dgrdev", "fakerjs", "iife", "memfs", "osascript"],
+  "ignoreWords": ["targendaz2", "trivago", "tseslint"],
   "import": []
 }
