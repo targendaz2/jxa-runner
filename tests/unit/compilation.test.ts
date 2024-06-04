@@ -3,7 +3,7 @@ import { describe, expect, test } from '@jest/globals';
 import { fs as memfs, vol } from 'memfs';
 import { ufs } from 'unionfs';
 import '../../jest.setup';
-import { JxaCompiler, compile } from '../../src/lib/compilers.js';
+import { compile } from '../../src/lib/compilers.js';
 import {
     ArgsSerializer,
     FnSerializer,
@@ -33,7 +33,7 @@ describe('JXA compilation tests', () => {
         // @ts-expect-error 'need to cast memfs as the correct type'
         ufs.use(fs).use(memfs);
 
-        await compile(JxaCompiler, {
+        await compile({
             entryPath: '/jxa-runner-test/src/index.js',
             outputPath: '/jxa-runner-test/.tmp/dist/bundle.js',
             filesystem: ufs,

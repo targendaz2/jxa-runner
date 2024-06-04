@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import config from '../config/common.js';
+import config from '../config.js';
 import type { FilledTemplate } from '../types.js';
 
 /** Writes a filled template to a file. */

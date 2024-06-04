@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { describe, expect, test } from '@jest/globals';
 import '../../jest.setup';
-import config from '../../src/config/common.js';
+import config from '../../src/config.js';
 import { outputTemplate } from '../../src/lib/output.js';
 import {
     ArgsSerializer,
