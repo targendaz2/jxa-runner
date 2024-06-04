@@ -9,7 +9,6 @@ export default function generateWebpackConfig(
     return {
         entry: entryPath.toString(),
         mode: 'production',
-        module: {},
         optimization: {
             concatenateModules: true,
             minimize: true,

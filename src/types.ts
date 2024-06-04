@@ -17,3 +17,4 @@ export type InputFileSystem = InstanceType<
 export type OutputFileSystem = InstanceType<
     typeof webpack.Compiler
 >['outputFileSystem'];
+export type FileSystem = InstanceType<typeof webpack.Resolver>['fileSystem'];

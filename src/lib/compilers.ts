@@ -22,20 +22,18 @@ export async function compile<T extends CompilerOptions>(
 export const JxaCompiler: Compiler<{
     entryPath: fs.PathLike;
     outputPath: fs.PathLike;
-    inputFs?: InputFileSystem;
-    outputFs?: OutputFileSystem;
+    filesystem?: InputFileSystem | OutputFileSystem;
 }> = {
     async compile(options) {
         const { entryPath, outputPath } = options;
 
         const webpackConfig = generateWebpackConfig(entryPath, outputPath);
+
         const compiler = webpack(webpackConfig);
 
-        if (options.inputFs) {
-            compiler.inputFileSystem = options.inputFs;
-        }
-        if (options.outputFs) {
-            compiler.outputFileSystem = options.outputFs;
+        if (options.filesystem) {
+            compiler.inputFileSystem = options.filesystem as InputFileSystem;
+            compiler.outputFileSystem = options.filesystem as OutputFileSystem;
         }
 
         return new Promise((resolve, reject) =>

@@ -2614,6 +2614,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fs-monkey@npm:^1.0.0":
+  version: 1.0.6
+  resolution: "fs-monkey@npm:1.0.6"
+  checksum: 10c0/6f2508e792a47e37b7eabd5afc79459c1ea72bce2a46007d2b7ed0bfc3a4d64af38975c6eb7e93edb69ac98bbb907c13ff1b1579b2cf52d3d02dbc0303fca79f
+  languageName: node
+  linkType: hard
+
 "fs.realpath@npm:^1.0.0":
   version: 1.0.0
   resolution: "fs.realpath@npm:1.0.0"
@@ -3672,6 +3679,7 @@ __metadata:
     type-fest: "npm:^4.18.3"
     typescript: "npm:^5.4.5"
     typescript-eslint: "npm:^7.11.0"
+    unionfs: "npm:^4.5.4"
     webpack: "npm:^5.91.0"
   languageName: unknown
   linkType: soft
@@ -5078,6 +5086,15 @@ __metadata:
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
   checksum: 10c0/bb673d7876c2d411b6eb6c560e0c571eef4a01c1c19925175d16e3a30c4c428181fb8d7ae802a261f283e4166a0ac435e2f505743aa9e45d893f9a3df017b501
+  languageName: node
+  linkType: hard
+
+"unionfs@npm:^4.5.4":
+  version: 4.5.4
+  resolution: "unionfs@npm:4.5.4"
+  dependencies:
+    fs-monkey: "npm:^1.0.0"
+  checksum: 10c0/f1d832aff214c372a79f1938e1e0b0302ecaea30dc9487963c0539b8aad8f6305071e1da3e4662d3f0b5fd115205f71b975c8ab92f45154c61bc51a17c6261f7
   languageName: node
   linkType: hard
 
