@@ -1,5 +1,7 @@
+import cp from 'node:child_process';
 import fs from 'fs-extra';
 import config from './config.js';
+import { compile } from './lib/compilers.js';
 import {
     ArgsSerializer,
     FnSerializer,
@@ -14,12 +16,16 @@ interface RunOptions {
     imports?: ImportsList;
 }
 
-export async function run<T>(
+async function run<T>(
     jxaFn: (...args: any[]) => T,
     options: RunOptions = {},
-): Promise<void> {
+): Promise<T> {
     // Parse options
-    const { args, imports } = { args: [], imports: {}, ...options };
+    const { args, imports } = {
+        args: [],
+        imports: {},
+        ...options,
+    };
 
     // Serialize the arguments
     const serializedArgs = serialize(args, ArgsSerializer);
@@ -38,32 +44,25 @@ export async function run<T>(
     });
 
     // Write the JXA code to file
-    fs.outputFileSync(config.entryPath, code);
-}
+    await fs.outputFile(config.entryPath, code);
 
-export function runSync<T>(
-    jxaFn: (...args: any[]) => T,
-    options: RunOptions = {},
-): void {
-    // Parse options
-    const { args, imports } = { args: [], imports: {}, ...options };
-
-    // Serialize the arguments
-    const serializedArgs = serialize(args, ArgsSerializer);
-
-    // Serialize the imports
-    const serializedImports = serialize(imports, ImportsSerializer);
-
-    // Serialize the function
-    const serializedFn = serialize(jxaFn, FnSerializer);
-
-    // Build the JXA code
-    const code = fillTemplate(JxaCodeTemplate, {
-        fn: serializedFn,
-        args: serializedArgs,
-        imports: serializedImports,
+    // Compile the JXA code
+    await compile({
+        entryPath: config.entryPath,
+        outputPath: config.outputPath,
     });
 
-    // Write the JXA code to file
-    fs.outputFileSync(config.entryPath, code);
+    // Run the compiled code
+    const result = cp.execFileSync(
+        '/usr/bin/osascript',
+        ['-l', 'JavaScript', config.outputPath],
+        {
+            encoding: 'utf8',
+        },
+    );
+
+    // Parse and return the result
+    return JSON.parse(result).result;
 }
+
+export default run;

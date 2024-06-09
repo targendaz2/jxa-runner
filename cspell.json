@@ -19,6 +19,7 @@
     "fakerjs",
     "iife",
     "memfs",
+    "mkdirs",
     "osascript",
     "unionfs"
   ],

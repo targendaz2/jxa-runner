@@ -55,20 +55,6 @@ const result = await run(
 );
 ```
 
-### Synchronous Usage
-
-```typescript
-import { runSync } from 'jxa-runner';
-
-// returns "Hello, world!"
-runSync(() => 'Hello, world!');
-
-// returns "Hello, John!"
-runSync((name: string) => `Hello, ${name}!`, {
-  args: ['John'],
-});
-```
-
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first

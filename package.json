@@ -47,7 +47,7 @@
     "@tsconfig/node21": "^21.0.3",
     "@types/eslint-config-prettier": "^6.11.3",
     "@types/eslint__js": "^8.42.3",
-    "@types/fs-extra": "^11.0.4",
+    "@types/fs-extra": "^11",
     "@types/node": "^20.12.12",
     "@types/serialize-javascript": "^5.0.4",
     "eslint": "^8.56.0",
