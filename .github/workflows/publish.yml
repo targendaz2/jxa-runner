@@ -1,22 +1,15 @@
-name: tests
+name: publish to npmjs
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  release:
+    types: [published]
+
+env:
+  NODE_ENV: production
 
 jobs:
-  test:
-    permissions:
-      checks: write
-
-    strategy:
-      matrix:
-        os: [macos-12, macos-13, macos-14]
-
-    runs-on: ${{ matrix.os }}
-
+  publish:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -29,9 +22,12 @@ jobs:
           node-version: '21.x'
           cache: yarn
           cache-dependency-path: yarn.lock
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Run tests
-        run: yarn test
+      - name: Publish the package
+        run: yarn npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
