@@ -32,12 +32,12 @@ export function generateWebpackCompiler(
     const compiler = webpack(config);
 
     if (options) {
-        compiler.inputFileSystem = options.inputFileSystem
-            ? options.inputFileSystem
-            : null;
-        compiler.outputFileSystem = options.outputFileSystem
-            ? options.outputFileSystem
-            : null;
+        if (options.inputFileSystem) {
+            compiler.inputFileSystem = options.inputFileSystem;
+        }
+        if (options.outputFileSystem) {
+            compiler.outputFileSystem = options.outputFileSystem;
+        }
     }
 
     return compiler;

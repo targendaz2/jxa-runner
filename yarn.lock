@@ -1202,6 +1202,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/tmp@npm:^0.2.6":
+  version: 0.2.6
+  resolution: "@types/tmp@npm:0.2.6"
+  checksum: 10c0/a11bfa2cd8eaa6c5d62f62a3569192d7a2c28efdc5c17af0b0551db85816b2afc8156f3ca15ac76f0b142ae1403f04f44279871424233a1f3390b2e5fc828cd0
+  languageName: node
+  linkType: hard
+
 "@types/yargs-parser@npm:*":
   version: 21.0.3
   resolution: "@types/yargs-parser@npm:21.0.3"
@@ -3664,16 +3671,19 @@ __metadata:
     "@types/fs-extra": "npm:^11"
     "@types/node": "npm:^20.12.12"
     "@types/serialize-javascript": "npm:^5.0.4"
+    "@types/tmp": "npm:^0.2.6"
     eslint: "npm:^8.56.0"
     eslint-config-prettier: "npm:^9.1.0"
     fishery: "npm:^2.2.2"
     fs-extra: "npm:^11.2.0"
     jest: "npm:^29.7.0"
     memfs: "npm:^4.9.2"
+    memfs-mirror: "npm:^0.1.0"
     pkg-dir: "npm:^8.0.0"
     prettier: "npm:^3.3.0"
     pupa: "npm:^3.1.0"
     serialize-javascript: "npm:^6.0.2"
+    tmp: "npm:^0.2.3"
     ts-jest: "npm:^29.1.3"
     ts-node: "npm:^10.9.2"
     type-fest: "npm:^4.18.3"
@@ -3842,6 +3852,24 @@ __metadata:
   dependencies:
     tmpl: "npm:1.0.5"
   checksum: 10c0/b0e6e599780ce6bab49cc413eba822f7d1f0dfebd1c103eaa3785c59e43e22c59018323cf9e1708f0ef5329e94a745d163fcbb6bff8e4c6742f9be9e86f3500c
+  languageName: node
+  linkType: hard
+
+"memfs-mirror@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "memfs-mirror@npm:0.1.0"
+  dependencies:
+    memfs: "npm:^4.9.2"
+    unionfs: "npm:^4.5.4"
+  peerDependencies:
+    memfs: ^4.9.2
+    unionfs: ^4.5.4
+  peerDependenciesMeta:
+    memfs:
+      optional: true
+    unionfs:
+      optional: true
+  checksum: 10c0/5db6c9a699bc1ef5a3b74f2731838d2818ec04c0677d7e51953a74803c3dcddd0e2e52887f82e1b48bd50f4089e9b3bbb8b3dc479e95d917571971c5b90c74f5
   languageName: node
   linkType: hard
 
@@ -4884,6 +4912,13 @@ __metadata:
   peerDependencies:
     tslib: ^2
   checksum: 10c0/7570ee855aecb73185a672ecf3eb1c287a6512bf5476449388433b2d4debcf78100bc8bfd439b0edd38d2bc3bfb8341de5ce85b8557dec66d0f27b962c9a8bc1
+  languageName: node
+  linkType: hard
+
+"tmp@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "tmp@npm:0.2.3"
+  checksum: 10c0/3e809d9c2f46817475b452725c2aaa5d11985cf18d32a7a970ff25b568438e2c076c2e8609224feef3b7923fa9749b74428e3e634f6b8e520c534eef2fd24125
   languageName: node
   linkType: hard
 
