@@ -2,7 +2,6 @@ import { describe, expect, test } from '@jest/globals';
 import { vol } from 'memfs';
 import { mirrorSync } from 'memfs-mirror';
 import tmp from 'tmp';
-import '../jest.setup.js';
 import run from '../src/main.js';
 import packageFactory from './factories/package.factory.js';
 

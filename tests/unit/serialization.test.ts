@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import '../../jest.setup';
+import 'jest-extended-code';
 import {
     ArgsSerializer,
     FnSerializer,

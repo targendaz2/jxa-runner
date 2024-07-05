@@ -1,9 +1,10 @@
 import cp from 'node:child_process';
 import fs from 'node:fs';
 import { describe, expect, test } from '@jest/globals';
+// import { mirrorSync } from 'memfs-mirror';
+import 'jest-extended-code';
 import { fs as memfs, vol } from 'memfs';
 import { ufs } from 'unionfs';
-import '../../jest.setup';
 import { compile } from '../../src/lib/compilers.js';
 import {
     ArgsSerializer,
