@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "JXA Runner runs JavaScript and TypeScript code using the JXA runtime.",
   "type": "module",
-  "packageManager": "yarn@4.2.2",
+  "packageManager": "yarn@4.3.0",
   "keywords": [
     "applescript",
     "automation",
@@ -44,7 +44,7 @@
     "@jest/globals": "^29.7.0",
     "@prettier/sync": "^0.5.2",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@tsconfig/node21": "^21.0.3",
+    "@tsconfig/node22": "^22.0.0",
     "@types/eslint-config-prettier": "^6.11.3",
     "@types/eslint__js": "^8.42.3",
     "@types/fs-extra": "^11",
@@ -55,6 +55,8 @@
     "eslint-config-prettier": "^9.1.0",
     "fishery": "^2.2.2",
     "jest": "^29.7.0",
+    "jest-extended-code": "^0.1.0",
+    "jest-extended-fs": "^1.0.2",
     "memfs": "^4.9.2",
     "memfs-mirror": "^0.1.0",
     "prettier": "^3.3.0",
@@ -70,6 +72,6 @@
     "darwin"
   ],
   "engines": {
-    "node": "^21.0.0"
+    "node": "^22.0.0"
   }
 }

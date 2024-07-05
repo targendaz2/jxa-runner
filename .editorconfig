@@ -5,12 +5,12 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{js,ts}]
+[*.{js,md,ts}]
 charset = utf-8
 indent_style = space
 indent_size = 4
 
-[*.{config.mjs,config.ts,json,markdownlintrc,md,yml}]
+[*.{config.mjs,config.ts,json,markdownlintrc,yml}]
 charset = utf-8
 indent_style = space
 indent_size = 2

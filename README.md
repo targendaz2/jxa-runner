@@ -1,15 +1,15 @@
 # JXA Runner
 
 ![GitHub License](https://img.shields.io/github/license/targendaz2/jxa-runner)
-![GitHub version](https://img.shields.io/github/package-json/v/targendaz2/jxa-runner?label=version)
-![NPM version](https://img.shields.io/npm/v/jxa-runner)
-![tests](https://github.com/targendaz2/jxa-runner/actions/workflows/test.yml/badge.svg)
+![GitHub Release](https://img.shields.io/github/v/release/targendaz2/jxa-runner?label=version)
+![NPM Version](https://img.shields.io/npm/v/jxa-runner?logo=npm&logoColor=%23999999)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/targendaz2/jxa-runner/test.yml?logo=github&label=tests&logoColor=%23999999)
 
 JXA Runner runs JavaScript and TypeScript code using the JXA runtime. It's intended to be used for testing JXA code rather than running JXA in production.
 
 ## Installation
 
-JXA Runner is available on the npm registry as `jxa-runner`.
+This package is available on npm as [`jxa-runner`](https://npmjs.com/package/jxa-runner).
 
 ```bash
 npm install jxa-runner

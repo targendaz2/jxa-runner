@@ -1,12 +1,12 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "eslint.experimental.useFlatConfig": true,
+  "eslint.useFlatConfig": true,
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
     "*.js": "$(capture).d.ts, $(capture).js.map",
-    "package.json": ".eslint*, .markdown*, .prettierrc*, .yarn*, cspell*, eslint*, jest*, yarn*"
+    "package.json": ".eslint*, .markdown*, .prettier*, .yarn*, cspell*, eslint*, jest*, yarn*"
   },
   "jest.outputConfig": "test-results-based",
   "jest.runMode": "on-demand",
@@ -14,7 +14,7 @@
     "extends": "./.markdownlintrc"
   },
   "material-icon-theme.files.associations": {
-    ".markdownlintrc": "Settings",
+    ".markdownlintrc.json": "Settings",
     "cspell.json": "Settings"
   },
   "material-icon-theme.folders.associations": {
